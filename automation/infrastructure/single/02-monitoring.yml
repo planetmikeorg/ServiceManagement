@@ -1,0 +1,5 @@
+- name: Configure Monitoring
+  hosts: all
+  become: true
+  roles:
+    - planetmikeorg.containers_monitoring

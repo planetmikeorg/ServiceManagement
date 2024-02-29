@@ -1,0 +1,36 @@
+- name: mrlesmithjr.manage-lvm
+
+- src: https://github.com/planetmikeorg/ansible_containers_agents.git
+  scm: git
+  version: main
+  name: planetmikeorg.container_agents
+
+- src: https://github.com/planetmikeorg/ansible_containers_host.git
+  scm: git
+  version: main
+  name: planetmikeorg.container_host
+
+- src: https://github.com/planetmikeorg/ansible_containers_monitoring.git
+  scm: git
+  version: main
+  name: planetmikeorg.containers_monitoring
+
+- src: https://github.com/planetmikeorg/ansible_baseline_linux.git
+  scm: git
+  version: main
+  name: planetmikeorg.baseline_linux
+
+- src: https://github.com/planetmikeorg/ansible_baseline_linux.git
+  scm: git
+  version: main
+  name: planetmikeorg.baseline_windows
+
+- src: https://github.com/planetmikeorg/ansible_windows_winbuilder.git 
+  scm: git
+  version: main
+  name: planetmikeorg.windows_wimbuilder 
+
+# - src: 
+#   scm: git
+#   version: main
+#   name: planetmikeorg.          

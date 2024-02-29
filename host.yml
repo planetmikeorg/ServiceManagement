@@ -1,0 +1,7 @@
+single_node:
+  hosts:
+    hostname.example.com:
+      ansible_host: 10.1.10.2
+      podman_user: podrunner
+      podman_user_id: 1002
+      services_fqdn: hostname.example.com

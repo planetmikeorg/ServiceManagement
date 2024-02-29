@@ -1,0 +1,6 @@
+- name: Klik Monitoring
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - planetmikeorg.containers_agents

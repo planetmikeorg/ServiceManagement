@@ -1,0 +1,8 @@
+- name: Linux
+  hosts: all
+  become: true
+  roles:
+    - planetmikeorg.baseline_linux
+    - planetmikeorg.containers_host
+    - planetmikeorg.containers_monitoring
+    - planetmikeorg.containers_agents
