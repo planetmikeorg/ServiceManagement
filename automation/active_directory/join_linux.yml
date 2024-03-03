@@ -1,0 +1,20 @@
+- hosts: linux
+  become: true
+  vars:
+    ad_integration_realm: "{{ domain_name }}"
+    ad_integration_user: "Administrator"
+    ad_integration_password: "{{ domain_admin_password }}"
+    ad_integration_computer_ou: "{{ machine_ou }}"
+    ad_integration_manage_crypto_policies: true
+    ad_integration_allow_rc4_crypto: true
+    ad_integration_manage_timesync: true
+    ad_integration_timesync_source: dc01.corp.planetmike.org
+    ad_dyndns_update: True
+    ad_dyndns_iface: eth0
+    ad_dyndns_refresh_interval: 43200
+    ad_dyndns_update_ptr: True
+    ad_dyndns_ttl: 3600
+  vars_files:
+    - ../../vars/basevm.yml      
+  roles:
+    - linux-system-roles.ad_integration

@@ -1,6 +1,12 @@
 collections:
   - name: ansible.posix
+  - name: ansible.posix
   - name: ansible.windows
-  - name: community.general
+  - name: community.general  
+  - name: community.hashi_vault
+  - name: community.vmware
+  - name: community.windows
   - name: containers.podman
-  
+  - name: freeipa.ansible_freeipa
+  - name: ovirt.ovirt
+  - name: theforeman.foreman

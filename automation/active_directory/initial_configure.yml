@@ -1,0 +1,59 @@
+---
+- name: Configure Domain Basics
+  hosts: wadm01.corp.planetmike.org
+  tasks:
+    - name: Update Corp Organizational Unit
+      microsoft.ad.ou:
+        name: "Corp"
+        path: "{{ root_dc }}"
+        state: present
+
+    - name: Update Organizational Units
+      microsoft.ad.ou:
+        name: "{{ item.name }}"
+        path: "{{ base_ou }}"
+        state: present
+      with_items: 
+        - "{{ ous }}"
+
+    - name: Update Groups
+      microsoft.ad.group:
+        name: "{{ item.name }}"
+        path: "{{ groups_ou }}"
+        scope: global
+        state: present
+      with_items:
+        - "{{ ad_groups }}"
+
+    - name: Update Service Accounts
+      microsoft.ad.user:
+        name: "{{ item.name }}"
+        password: "{{ item.password }}"  
+        path: "{{ item.ou }}"
+        state: present
+        attributes:
+          set:
+            description: "{{ item.description }}"
+      with_items: 
+        - "{{ service_accounts }}"
+    
+    - name: Compute Reverse DNS Zone Name
+      set_fact:
+        dns_zone_name: "{{ reverse_zone.split('.') | reverse | join('.') }}.in-addr.arpa"
+
+    - name: Update AD DNS Zone
+      community.windows.win_dns_zone:
+        name: "{{ domain_name }}"
+        replication: "forest"
+        dynamic_update: "secure"
+
+    - name: Update Reverse Lookup Zone
+      community.windows.win_dns_zone:
+        name: "{{ dns_zone_name }}"
+        replication: "forest"
+        dynamic_update: "secure"
+        state: present
+        dns_servers:
+          - "{{ domain_dns_servers }}"
+      register: dns_zone
+

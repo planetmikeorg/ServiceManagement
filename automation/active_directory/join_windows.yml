@@ -1,0 +1,12 @@
+---
+- name: Join Domain
+  hosts: all
+  gather_facts: no
+  tasks:
+  - name: join host to domain
+    microsoft.ad.membership:
+      dns_domain_name: "{{ domain_name }}"
+      domain_admin_user: "{{ domain_admin_user }}"
+      domain_admin_password: "{{ domain_admin_password }}"
+      state: domain
+      reboot: true
