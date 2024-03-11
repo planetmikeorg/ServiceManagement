@@ -1,5 +1,5 @@
 ---
-- name: Setup Ansible Control Node on RHEL 9 with Kerberos Support
+- name: Setup Ansible Control Node with Kerberos Support
   hosts: all
   become: yes
   tasks:
@@ -12,5 +12,7 @@
           - ansible
           - krb5-workstation
           - krb5-libs
+          - nmap
+          - xmlstarlet
         state: present
 

@@ -5,3 +5,6 @@ roles/*
 my-vars.yml
 vault
 systems
+automation/collection/scanning/nmap_output.txt
+automation/collection/scanning/nmap_output.xml
+automation/collection/scanning/ansible_inventory.yml

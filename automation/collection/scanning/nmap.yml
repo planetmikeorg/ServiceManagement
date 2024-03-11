@@ -1,0 +1,28 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Run nmap scan
+      community.general.nmap:
+        targets: "{{ nmap_range}}"
+        ports: "22,3389,5985,5986"
+        options: "-oG -"
+      register: nmap_result
+
+    - name: Create Ansible inventory
+      set_fact:
+        ansible_inventory:
+          Linux:
+            hosts: "{{ nmap_result.stdout_lines | select('regex', '^Host: (.*)\tPorts: 22/open') | map('regex_replace', '^Host: (.*)\tPorts: 22/open$', '\\1') | list }}"
+            vars:
+              ansible_connection: ssh
+          Windows:
+            hosts: "{{ nmap_result.stdout_lines | select('regex', '^Host: (.*)\tPorts: (3389|5985|5986)/open') | map('regex_replace', '^Host: (.*)\tPorts: (3389|5985|5986)/open$', '\\1') | list }}"
+            vars:
+              ansible_connection: winrm
+
+    - name: Write inventory to file
+      copy:
+        content: |
+          {{ ansible_inventory | to_yaml }}
+        dest: inventory.yml
