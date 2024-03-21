@@ -1,0 +1,6 @@
+---
+- name: Linux
+  hosts: linux
+  become: true
+  roles:
+    - planetmikeorg.baseline_linux
